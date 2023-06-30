@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../constants.dart';
@@ -19,7 +20,6 @@ AppBar buildAppBar(BuildContext context, {String title = "GOOD MORNING"}) {
 
   return AppBar(
     backgroundColor: kBackgroundColor,
-    brightness: Brightness.dark,
     elevation: 0,
     leading: Padding(
       padding: const EdgeInsets.only(left: 15),
@@ -42,6 +42,6 @@ AppBar buildAppBar(BuildContext context, {String title = "GOOD MORNING"}) {
         icon: ClipOval(child: SvgPicture.asset('assets/icons/settings.svg')),
         onPressed: () {},
       )
-    ],
+    ], systemOverlayStyle: SystemUiOverlayStyle.light,
   );
 }
