@@ -14,6 +14,6 @@
       <path opacity=".15" d="M25.539 0 14.737 19.704h5.986L31.525 0z"/>
     </g>
   </g>
-  <text style="fill: rgb(255, 255, 255); font-family: Adamina; font-size: 13px; font-weight: 700; white-space: pre;" transform="matrix(1.456395, 0, 0, 1.116039, -14.422075, -23.952646)" x="31.6" y="35.318" bx:origin="0.461681 -0.41831">Easy</text>
-  <text style="fill: #36e2ec; font-family: Adamina; font-size: 13px; font-weight: 700; white-space: pre;" transform="matrix(1.456395, 0, 0, 1.116039, -14.422075, -23.952646)" x="58.8" y="35.318" bx:origin="0.461681 -0.41831">Music</text>
+  <text style="fill: rgb(255, 255, 255); font-family: Adamina; font-size: 18px; font-weight: 700; white-space: pre;" transform="matrix(1.456395, 0, 0, 1.116039, -14.422075, -23.952646)" x="33.6" y="35.318" bx:origin="0.461681 -0.41831">Easy</text>
+  <text style="fill: #36e2ec; font-family: Adamina; font-size: 18px; font-weight: 700; white-space: pre;" transform="matrix(1.456395, 0, 0, 1.116039, -14.422075, -23.952646)" x="59.9" y="35.318" bx:origin="0.461681 -0.41831">Music</text>
 </svg>
