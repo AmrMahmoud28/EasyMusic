@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../components/title.dart';
 import 'explore_button.dart';
+import 'for_you.dart';
 import 'my_play_lists.dart';
 
 class Body extends StatelessWidget {
@@ -26,7 +27,10 @@ class Body extends StatelessWidget {
               title: 'MY PLAYLISTS',
             ),
             MyPlayLists(),
-            ExploreButton()
+            ExploreButton(),
+            TitleBar(title: 'FOR YOU'),
+
+            ForYou()
           ],
         ),
       ),
