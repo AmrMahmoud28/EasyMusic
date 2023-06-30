@@ -8,7 +8,10 @@ AppBar buildAppBar(BuildContext context, {String title = "GOOD MORNING"}) {
   final now = DateTime.now();
   String greeting = "";
 
-  if(now.hour < 12){
+  if(now.hour < 6){
+    greeting = "GOOD EVENING, ";
+  }
+  else if(now.hour < 12){
     greeting = "GOOD MORNING, ";
   }
   else if(now.hour < 18){
