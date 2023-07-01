@@ -29,8 +29,8 @@ class Body extends StatelessWidget {
             MyPlayLists(),
             ExploreButton(),
             TitleBar(title: 'FOR YOU'),
-
-            ForYou()
+            ForYou(),
+            TitleBar(title: 'ARTISTS')
           ],
         ),
       ),

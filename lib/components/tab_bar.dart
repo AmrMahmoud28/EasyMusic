@@ -23,10 +23,16 @@ class TabItem {
 class CustomTabBar extends StatefulWidget {
   const CustomTabBar({
     Key? key,
+
+    required this.onIndexChanged,
   }) : super(key: key);
+
+  final Function(int) onIndexChanged;
 
   @override
   State<CustomTabBar> createState() => _CustomTabBarState();
+
+  int get currentIndex => _CustomTabBarState().currentIndex;
 }
 
 class _CustomTabBarState extends State<CustomTabBar> {
@@ -106,6 +112,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                       onTap: () {
                         setState(() {
                           currentIndex = index;
+                          widget.onIndexChanged(index);
                           HapticFeedback.lightImpact();
                           _tabs[index].tapEvent();
                         });
@@ -197,103 +204,3 @@ class _CustomTabBarState extends State<CustomTabBar> {
     );
   }
 }
-
-// Row(
-// mainAxisAlignment: MainAxisAlignment.spaceAround,
-// children: _tabs.map((tab) {
-// return DelayedDisplay(
-// delay: Duration(milliseconds: 400 * tab.timeFactor),
-// slidingBeginOffset: const Offset(-1, 0),
-// child: InkWell(
-// onTap: () {
-// _selectTab(_tabs.indexOf(tab));
-// tab.tapEvent();
-// },
-// child: Container(
-// padding: const EdgeInsets.all(5),
-// height: 50,
-// width: 50,
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(50),
-// color: tab.isActive ? kPrimaryColor : Colors.transparent),
-// child: Column(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: [
-// SvgPicture.asset(
-// tab.icon,
-// color: kTextColor,
-// height: 18,
-// ),
-// const SizedBox(height: 4),
-// Text(
-// tab.name,
-// style: const TextStyle(
-// color: kTextColor,
-// fontSize: 9,
-// fontWeight: FontWeight.bold),
-// )
-// ],
-// ),
-// ),
-// ),
-// );
-// }).toList(),
-// ),
-
-// class TabItem extends StatefulWidget {
-//   TabItem({
-//     Key? key,
-//     required this.icon,
-//     required this.name,
-//     required this.tapEvent,
-//     required this.isActive,
-//     required this.timeFactor,
-//   }) : super(key: key);
-//
-//   final String icon, name;
-//   final GestureTapCallback tapEvent;
-//   bool isActive;
-//   final int timeFactor;
-//
-//   @override
-//   State<TabItem> createState() => _TabItemState();
-// }
-//
-// class _TabItemState extends State<TabItem> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return DelayedDisplay(
-//       delay: Duration(milliseconds: 400 * widget.timeFactor),
-//       slidingBeginOffset: const Offset(-1, 0),
-//       child: InkWell(
-//         onTap: () {},
-//         child: Container(
-//           padding: const EdgeInsets.all(5),
-//           height: 50,
-//           width: 50,
-//           decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(50),
-//               color: widget.isActive ? kPrimaryColor : Colors.transparent),
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               SvgPicture.asset(
-//                 widget.icon,
-//                 color: kTextColor,
-//                 height: 18,
-//               ),
-//               const SizedBox(height: 4),
-//               Text(
-//                 widget.name,
-//                 style: const TextStyle(
-//                     color: kTextColor,
-//                     fontSize: 9,
-//                     fontWeight: FontWeight.bold),
-//               )
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
