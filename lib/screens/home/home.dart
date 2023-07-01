@@ -27,10 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: buildAppBar(context, title: "AMRak28"),
       body: Stack(
         children: [
-          renderView(0, Body()),
-          renderView(1, SearchScreen()),
-          renderView(2, LibraryScreen()),
-          renderView(3, ProfileScreen()),
+          renderView(0, const Body()),
+          renderView(1, const SearchScreen()),
+          renderView(2, const LibraryScreen()),
+          renderView(3, const ProfileScreen()),
         ],
       ),
       bottomNavigationBar: CustomTabBar(

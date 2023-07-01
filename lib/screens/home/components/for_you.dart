@@ -13,7 +13,7 @@ class ForYou extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return DelayedDisplay(
-      delay: const Duration(milliseconds: 600),
+      delay: const Duration(milliseconds: 800),
       child: GestureDetector(
         onTap: () {},
         child: Container(

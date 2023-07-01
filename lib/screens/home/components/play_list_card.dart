@@ -20,7 +20,7 @@ class PlayListCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return DelayedDisplay(
-      delay: Duration(milliseconds: 600 * index + 1),
+      delay: Duration(milliseconds: 800 * index + 1),
       fadingDuration: Duration(milliseconds: 600 * index + 1),
       child: Padding(
         padding: const EdgeInsets.only(right: kDefaultPadding),

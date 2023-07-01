@@ -16,6 +16,7 @@ class MyPlayLists extends StatelessWidget {
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.only(
               left: kDefaultPadding,
               right: kDefaultPadding,

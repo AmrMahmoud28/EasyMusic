@@ -20,7 +20,7 @@ class ExploreButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             DelayedDisplay(
-              delay: const Duration(milliseconds: 600),
+              delay: const Duration(milliseconds: 800),
               fadingDuration: const Duration(milliseconds: 600),
               slidingBeginOffset: const Offset(-1, 0),
               child: Container(
@@ -43,7 +43,7 @@ class ExploreButton extends StatelessWidget {
               ),
             ),
             DelayedDisplay(
-              delay: const Duration(milliseconds: 600),
+              delay: const Duration(milliseconds: 800),
               fadingDuration: const Duration(milliseconds: 600),
               slidingBeginOffset: const Offset(1, 0),
               child: Container(
