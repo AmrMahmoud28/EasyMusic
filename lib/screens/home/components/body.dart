@@ -1,10 +1,12 @@
 import 'package:delayed_display/delayed_display.dart';
+import 'package:easy_music/Models/Artist.dart';
 import 'package:easy_music/Models/PlayList.dart';
 import 'package:easy_music/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../components/title.dart';
+import 'artists.dart';
 import 'explore_button.dart';
 import 'for_you.dart';
 import 'my_play_lists.dart';
@@ -19,6 +21,7 @@ class Body extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return const SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       clipBehavior: Clip.none,
       child: SafeArea(
         child: Column(
@@ -30,7 +33,8 @@ class Body extends StatelessWidget {
             ExploreButton(),
             TitleBar(title: 'FOR YOU'),
             ForYou(),
-            TitleBar(title: 'ARTISTS')
+            TitleBar(title: 'ARTISTS'),
+            Artists()
           ],
         ),
       ),
