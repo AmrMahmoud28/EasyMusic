@@ -1,4 +1,3 @@
-import 'package:delayed_display/delayed_display.dart';
 import 'package:easy_music/screens/home/components/play_list_card.dart';
 import 'package:flutter/material.dart';
 

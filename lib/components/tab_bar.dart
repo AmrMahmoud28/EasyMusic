@@ -122,14 +122,14 @@ class _CustomTabBarState extends State<CustomTabBar> {
                       child: Stack(
                         children: [
                           AnimatedContainer(
-                            duration: Duration(seconds: 1),
+                            duration: const Duration(seconds: 1),
                             curve: Curves.fastLinearToSlowEaseIn,
                             width: index == currentIndex
                                 ? displayWidth * .32
                                 : displayWidth * .18,
                             alignment: Alignment.center,
                             child: AnimatedContainer(
-                              duration: Duration(seconds: 1),
+                              duration: const Duration(seconds: 1),
                               curve: Curves.fastLinearToSlowEaseIn,
                               height: index == currentIndex
                                   ? displayWidth * .12
@@ -146,7 +146,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                             ),
                           ),
                           AnimatedContainer(
-                            duration: Duration(seconds: 1),
+                            duration: const Duration(seconds: 1),
                             curve: Curves.fastLinearToSlowEaseIn,
                             width: index == currentIndex
                                 ? displayWidth * .31
@@ -157,7 +157,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                                 Row(
                                   children: [
                                     AnimatedContainer(
-                                      duration: Duration(seconds: 1),
+                                      duration: const Duration(seconds: 1),
                                       curve: Curves.fastLinearToSlowEaseIn,
                                       width: index == currentIndex
                                           ? displayWidth * .13
@@ -165,7 +165,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                                     ),
                                     AnimatedOpacity(
                                       opacity:  index == currentIndex ? 1 : 0,
-                                      duration: Duration(seconds: 1),
+                                      duration: const Duration(seconds: 1),
                                       curve: Curves.fastLinearToSlowEaseIn,
                                       child: Text(
                                         index == currentIndex
@@ -183,7 +183,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                                 Row(
                                   children: [
                                     AnimatedContainer(
-                                      duration: Duration(seconds: 1),
+                                      duration: const Duration(seconds: 1),
                                       curve: Curves.fastLinearToSlowEaseIn,
                                       width: index == currentIndex ? displayWidth * .03 : 20,
                                     ),

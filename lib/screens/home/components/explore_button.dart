@@ -12,7 +12,7 @@ class ExploreButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Container(
+    return SizedBox(
       width: size.width,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
@@ -23,7 +23,7 @@ class ExploreButton extends StatelessWidget {
               delay: const Duration(milliseconds: 800),
               fadingDuration: const Duration(milliseconds: 600),
               slidingBeginOffset: const Offset(-1, 0),
-              child: Container(
+              child: SizedBox(
                 width: size.width * 0.3,
                 child: TextButton(
                   onPressed: () {},
@@ -46,7 +46,7 @@ class ExploreButton extends StatelessWidget {
               delay: const Duration(milliseconds: 800),
               fadingDuration: const Duration(milliseconds: 600),
               slidingBeginOffset: const Offset(1, 0),
-              child: Container(
+              child: SizedBox(
                 width: size.width * 0.6,
                 child: OutlinedButton.icon(
                   onPressed: () {},

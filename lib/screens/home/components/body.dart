@@ -1,10 +1,5 @@
-import 'package:delayed_display/delayed_display.dart';
-import 'package:easy_music/Models/Artist.dart';
-import 'package:easy_music/Models/PlayList.dart';
-import 'package:easy_music/constants.dart';
+import 'package:easy_music/screens/home/components/popular_items.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../components/title.dart';
 import 'artists.dart';
 import 'explore_button.dart';
@@ -18,8 +13,6 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return const SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       clipBehavior: Clip.none,
@@ -34,7 +27,9 @@ class Body extends StatelessWidget {
             TitleBar(title: 'FOR YOU'),
             ForYou(),
             TitleBar(title: 'ARTISTS'),
-            Artists()
+            Artists(),
+            TitleBar(title: 'POPULAR'),
+            PopularItems()
           ],
         ),
       ),
