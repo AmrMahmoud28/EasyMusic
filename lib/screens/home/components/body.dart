@@ -16,7 +16,7 @@ class Body extends StatelessWidget {
     return const SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       clipBehavior: Clip.none,
-      child: SafeArea(
+      // child: SafeArea(
         child: Column(
           children: [
             TitleBar(
@@ -32,7 +32,7 @@ class Body extends StatelessWidget {
             PopularItems()
           ],
         ),
-      ),
+      // ),
     );
   }
 }

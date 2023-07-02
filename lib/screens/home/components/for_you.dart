@@ -19,9 +19,7 @@ class ForYou extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: kPrimaryColor
-          ),
+              borderRadius: BorderRadius.circular(8), color: kPrimaryColor),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -46,7 +44,6 @@ class ForYou extends StatelessWidget {
                   ],
                 ),
               ),
-
               SizedBox(
                 width: size.width * 0.55,
                 height: 150,
@@ -58,10 +55,11 @@ class ForYou extends StatelessWidget {
                       style: TextStyle(
                           color: kTextColor,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20
-                      ),
+                          fontSize: 20),
                     ),
-                    const SizedBox(height: 18,),
+                    const SizedBox(
+                      height: 18,
+                    ),
                     RichText(
                       text: const TextSpan(
                         children: <TextSpan>[
