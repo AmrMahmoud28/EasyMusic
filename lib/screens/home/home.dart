@@ -1,4 +1,5 @@
 import 'package:easy_music/components/app_bar.dart';
+import 'package:easy_music/constants.dart';
 import 'package:easy_music/screens/home/components/body.dart';
 import 'package:easy_music/screens/library/library.dart';
 import 'package:easy_music/screens/profile/profile.dart';
@@ -6,6 +7,7 @@ import 'package:easy_music/screens/search/search.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/tab_bar.dart';
+import 'components/current_song.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -62,6 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+
+            const CurrentSong(),
+
             CustomTabBar(
               onIndexChanged: (index) {
                 setState(() {

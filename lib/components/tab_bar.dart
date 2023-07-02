@@ -89,7 +89,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
     return DelayedDisplay(
       delay: const Duration(milliseconds: 200),
       child: Container(
-          margin: EdgeInsets.all(displayWidth * .05),
+          margin: EdgeInsets.only(left: displayWidth * .05, right: displayWidth * .05, bottom: displayWidth * .05),
           height: displayWidth * .155,
           decoration: BoxDecoration(
               color: kTabBarColor,
