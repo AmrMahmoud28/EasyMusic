@@ -20,7 +20,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
   Duration duration = const Duration(milliseconds: 60000);
   Duration position = Duration.zero;
   // bool isPlaying = true;
-  double currentDuration = 371;
+  late double currentDuration;
   Timer? timer;
   bool isTimerRunning = false;
 
@@ -35,6 +35,13 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
   }
 
   @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    currentDuration = MediaQuery.of(context).size.width;
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -46,7 +53,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
     } else {
       timer = Timer.periodic(Duration(milliseconds: 50), (_) {
         setState(() {
-          currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - 371) + 371;
+          currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - MediaQuery.of(context).size.width) + MediaQuery.of(context).size.width;
           position += const Duration(milliseconds: 50);
           if(duration.inMilliseconds < position.inMilliseconds) {
             position = Duration.zero;
