@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +17,12 @@ class CurrentSong extends StatefulWidget {
 class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStateMixin{
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
+  Duration duration = const Duration(milliseconds: 60000);
+  Duration position = Duration.zero;
+  // bool isPlaying = true;
+  double currentDuration = 1.0;
+  Timer? timer;
+  bool isTimerRunning = true;
 
   @override
   void initState() {
@@ -24,12 +32,39 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
       duration: const Duration(milliseconds: 30),
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(_controller);
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - 371) + 371;
+        position += const Duration(seconds: 1);
+        if(duration.inMilliseconds < position.inMilliseconds) {
+          position = Duration.zero;
+        }
+      });
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    timer?.cancel();
     super.dispose();
+  }
+
+  void toggleTimer() {
+    if (isTimerRunning) {
+      timer?.cancel();
+    } else {
+      timer = Timer.periodic(Duration(seconds: 1), (_) {
+        setState(() {
+          currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - 371) + 371;
+          position += const Duration(seconds: 1);
+          if(duration.inMilliseconds < position.inMilliseconds) {
+            position = Duration.zero;
+          }
+        });
+      });
+    }
+    setState(() => isTimerRunning = !isTimerRunning);
   }
 
   void _onTapDown(TapDownDetails details) {
@@ -129,11 +164,11 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
                         highlightColor: Colors.transparent,
                         focusColor: Colors.transparent,
                         splashColor: Colors.transparent,
-                        onTap: () {},
-                        child: const Padding(
+                        onTap: () {toggleTimer();},
+                        child: Padding(
                             padding: EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 7),
                             child: Icon(
-                              Icons.play_arrow,
+                              isTimerRunning ? Icons.pause : Icons.play_arrow,
                               color: kTextColor,
                             )
                         ),
@@ -160,10 +195,9 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
               Positioned(
                 bottom: 10,
                 left: 22,
-                right: 275,
+                right: currentDuration,
                 child: Container(
                   height: 2,
-                  width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                       color: kTabBarColor,
                       borderRadius: BorderRadius.all(
@@ -172,7 +206,6 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
                   ),
                 ),
               ),
-
             ],
           ),
         ),
