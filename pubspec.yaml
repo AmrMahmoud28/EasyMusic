@@ -48,11 +48,9 @@ dev_dependencies:
 flutter_native_splash:
   color: "#121213"
   image: assets/images/splash-square.png
-  fill: true
 
   android_12:
     image: assets/images/splash-square.png
-    fill: true
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

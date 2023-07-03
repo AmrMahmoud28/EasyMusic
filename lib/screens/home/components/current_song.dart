@@ -38,7 +38,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    currentDuration = MediaQuery.of(context).size.width;
+    currentDuration = (MediaQuery.of(context).size.width - 22);
   }
 
   @override
@@ -53,7 +53,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
     } else {
       timer = Timer.periodic(Duration(milliseconds: 50), (_) {
         setState(() {
-          currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - MediaQuery.of(context).size.width) + MediaQuery.of(context).size.width;
+          currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - (MediaQuery.of(context).size.width - 22)) + (MediaQuery.of(context).size.width - 22);
           position += const Duration(milliseconds: 50);
           if(duration.inMilliseconds < position.inMilliseconds) {
             position = Duration.zero;
