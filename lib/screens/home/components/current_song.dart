@@ -20,9 +20,9 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
   Duration duration = const Duration(milliseconds: 60000);
   Duration position = Duration.zero;
   // bool isPlaying = true;
-  double currentDuration = 1.0;
+  double currentDuration = 371;
   Timer? timer;
-  bool isTimerRunning = true;
+  bool isTimerRunning = false;
 
   @override
   void initState() {
@@ -32,21 +32,11 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
       duration: const Duration(milliseconds: 30),
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(_controller);
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - 371) + 371;
-        position += const Duration(seconds: 1);
-        if(duration.inMilliseconds < position.inMilliseconds) {
-          position = Duration.zero;
-        }
-      });
-    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    timer?.cancel();
     super.dispose();
   }
 
@@ -54,10 +44,10 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
     if (isTimerRunning) {
       timer?.cancel();
     } else {
-      timer = Timer.periodic(Duration(seconds: 1), (_) {
+      timer = Timer.periodic(Duration(milliseconds: 50), (_) {
         setState(() {
           currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - 371) + 371;
-          position += const Duration(seconds: 1);
+          position += const Duration(milliseconds: 50);
           if(duration.inMilliseconds < position.inMilliseconds) {
             position = Duration.zero;
           }
