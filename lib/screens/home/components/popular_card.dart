@@ -1,4 +1,5 @@
 import 'package:delayed_display/delayed_display.dart';
+import 'package:easy_music/screens/home/home.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Models/Popular.dart';
@@ -59,6 +60,7 @@ class _PopularCardState extends State<PopularCard> with SingleTickerProviderStat
         child: GestureDetector(
           onTap: () {
             _controller.forward().then((value) => _controller.reverse());
+            HomeScreen.updateCurrentSong(context, widget.popularItem);
           },
           onTapDown: _onTapDown,
           onTapUp: _onTapUp,
@@ -81,7 +83,10 @@ class _PopularCardState extends State<PopularCard> with SingleTickerProviderStat
                         ]),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(widget.popularItem.image),
+                          child: Image.network(
+                            widget.popularItem.image,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       Positioned.fill(

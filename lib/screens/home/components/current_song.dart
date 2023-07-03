@@ -3,12 +3,17 @@ import 'dart:async';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Models/Popular.dart';
 import '../../../constants.dart';
 
 class CurrentSong extends StatefulWidget {
   const CurrentSong({
     super.key,
+
+    required this.currentSong
   });
+
+  final Popular? currentSong;
 
   @override
   State<CurrentSong> createState() => _CurrentSongState();
@@ -22,7 +27,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
   // bool isPlaying = true;
   late double currentDuration;
   Timer? timer;
-  bool isTimerRunning = false;
+  bool isTimerRunning = true;
 
   @override
   void initState() {
@@ -32,6 +37,15 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
       duration: const Duration(milliseconds: 30),
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(_controller);
+    timer = Timer.periodic(Duration(milliseconds: 50), (_) {
+      setState(() {
+        currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - (MediaQuery.of(context).size.width - 22)) + (MediaQuery.of(context).size.width - 22);
+        position += const Duration(milliseconds: 50);
+        if(duration.inMilliseconds < position.inMilliseconds) {
+          position = Duration.zero;
+        }
+      });
+    });
   }
 
   @override
@@ -44,6 +58,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
   @override
   void dispose() {
     _controller.dispose();
+    timer?.cancel();
     super.dispose();
   }
 
@@ -79,7 +94,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return DelayedDisplay(
-      delay: const Duration(milliseconds: 800),
+      delay: const Duration(milliseconds: 100),
       child: GestureDetector(
         onTap: () {
           _controller.forward().then((value) => _controller.reverse());
@@ -105,10 +120,10 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
                     children: [
                       Container(
                         width: 38,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(
-                                  'https://sterling-sound.com/wp-content/uploads/Lauv-I-Like-Me-Better-2017-billboard-embed.jpg',
+                                  widget.currentSong!.image,
                                 ),
                                 fit: BoxFit.cover
                             ),
@@ -116,13 +131,13 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
                         ),
                       ),
                       const SizedBox(width: 8,),
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'I Like Me Better',
-                            style: TextStyle(
+                            widget.currentSong!.title,
+                            style: const TextStyle(
                                 color: kTextColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 13,
@@ -131,7 +146,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
                             textAlign: TextAlign.left,
                           ),
                           Text(
-                            'Lauv',
+                            widget.currentSong!.artist,
                             style: TextStyle(
                                 color: kTextColor,
                                 fontWeight: FontWeight.w500,
