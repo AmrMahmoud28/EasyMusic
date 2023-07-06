@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 
@@ -22,12 +21,12 @@ class CurrentSong extends StatefulWidget {
 class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStateMixin{
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
-  Duration duration = const Duration(milliseconds: 60000);
+
+  final AudioPlayer audioPlayer = AudioPlayer();
+  Duration duration = Duration.zero;
   Duration position = Duration.zero;
-  // bool isPlaying = true;
-  late double currentDuration;
-  Timer? timer;
-  bool isTimerRunning = true;
+  bool isPlaying = true;
+  late double currentPosition;
 
   @override
   void initState() {
@@ -37,13 +36,25 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
       duration: const Duration(milliseconds: 30),
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(_controller);
-    timer = Timer.periodic(Duration(milliseconds: 50), (_) {
+
+    setSong();
+
+    audioPlayer.onPlayerStateChanged.listen((state) {
       setState(() {
-        currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - (MediaQuery.of(context).size.width - 22)) + (MediaQuery.of(context).size.width - 22);
-        position += const Duration(milliseconds: 50);
-        if(duration.inMilliseconds < position.inMilliseconds) {
-          position = Duration.zero;
-        }
+        isPlaying = state == AudioPlayerState.PLAYING;
+      });
+    });
+
+    audioPlayer.onDurationChanged.listen((newDuration) {
+      setState(() {
+        duration = newDuration;
+      });
+    });
+
+    audioPlayer.onAudioPositionChanged.listen((newPosition) {
+      setState(() {
+        position = newPosition;
+        currentPosition = (position.inMilliseconds / duration.inMilliseconds) * (22 - (MediaQuery.of(context).size.width - 22)) + (MediaQuery.of(context).size.width - 22);
       });
     });
   }
@@ -52,31 +63,30 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    currentDuration = (MediaQuery.of(context).size.width - 22);
+    currentPosition = (MediaQuery.of(context).size.width - 22);
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    timer?.cancel();
+    audioPlayer.dispose();
     super.dispose();
   }
 
-  void toggleTimer() {
-    if (isTimerRunning) {
-      timer?.cancel();
-    } else {
-      timer = Timer.periodic(Duration(milliseconds: 50), (_) {
-        setState(() {
-          currentDuration = (position.inMilliseconds / duration.inMilliseconds) * (22 - (MediaQuery.of(context).size.width - 22)) + (MediaQuery.of(context).size.width - 22);
-          position += const Duration(milliseconds: 50);
-          if(duration.inMilliseconds < position.inMilliseconds) {
-            position = Duration.zero;
-          }
-        });
-      });
+  void toggleTimer() async {
+    if(isPlaying){
+      await audioPlayer.pause();
     }
-    setState(() => isTimerRunning = !isTimerRunning);
+    else{
+      await audioPlayer.resume();
+    }
+  }
+
+  Future setSong() async {
+    audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+
+    audioPlayer.setUrl(widget.currentSong!.songUrl);
+    audioPlayer.resume();
   }
 
   void _onTapDown(TapDownDetails details) {
@@ -127,7 +137,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
                                 ),
                                 fit: BoxFit.cover
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(4))
+                            borderRadius: const BorderRadius.all(Radius.circular(4))
                         ),
                       ),
                       const SizedBox(width: 8,),
@@ -147,7 +157,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
                           ),
                           Text(
                             widget.currentSong!.artist,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: kTextColor,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 13,
@@ -178,9 +188,9 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
                         splashColor: Colors.transparent,
                         onTap: () {toggleTimer();},
                         child: Padding(
-                            padding: EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 7),
+                            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 7),
                             child: Icon(
-                              isTimerRunning ? Icons.pause : Icons.play_arrow,
+                              isPlaying ? Icons.pause : Icons.play_arrow,
                               color: kTextColor,
                             )
                         ),
@@ -207,7 +217,7 @@ class _CurrentSongState extends State<CurrentSong> with SingleTickerProviderStat
               Positioned(
                 bottom: 10,
                 left: 22,
-                right: currentDuration,
+                right: currentPosition,
                 child: Container(
                   height: 2,
                   decoration: const BoxDecoration(
